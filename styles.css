@@ -11,7 +11,8 @@ body{
   background-color: #1D1C23;
   width: 40%;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   float:left;
   border-right: 1px solid black;
 }
@@ -43,6 +44,7 @@ body{
   position: relative;
 }
 .note:hover{
+  cursor: pointer;
   background-color: #f08b00
 }
 .head{
@@ -76,7 +78,8 @@ body{
 
 }
 .btn:hover{
-    background-color: #f08b00
+  cursor: pointer;
+  background-color: #f08b00
 }
 .closeBtn{
   background-color: #1D1C23;
@@ -94,5 +97,6 @@ body{
   transition: 0.1s linear;
 }
 .closeBtn:hover{
+  cursor: pointer;
   background-color: #c71400;
 }

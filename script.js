@@ -5,7 +5,7 @@ function addDiv(){
     month = '0' + month
   }
   var fullDate = date.getDate() + '.' + month + '.' + date.getFullYear()
-  addingButton.insertAdjacentHTML("beforebegin", '<div class = "note" id = "test"> \
+  addingButton.insertAdjacentHTML("beforebegin", '<div onclick = openNote() class = "note" id = "test" oncliclick = openNote()> \
     <button name = "rem" class = "closeBtn" onclick = remDiv()>X</button>\
     <div name = "head" class = "head">Заголовок</div>\
     <div class = "time">{Date}</div>\
