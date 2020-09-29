@@ -39,9 +39,13 @@ body{
   padding-left: 5%;
   color: white;
   float:left;
+  transition: 0.1s linear;
   position: relative;
 }
-.headline{
+.note:hover{
+  background-color: #f08b00
+}
+.head{
   font-size:170%;
   position: absolute;
   top:15%
@@ -80,7 +84,8 @@ body{
   width: 5%;
   height: 20%;
   top: 0%;
-  right: 0%;
+  right: -1%;
+  border-right: 2px solid #2E2D34;
   text-align: center;
   vertical-align: middle;
   border: 0;

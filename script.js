@@ -6,13 +6,17 @@ function addDiv(){
   }
   var fullDate = date.getDate() + '.' + month + '.' + date.getFullYear()
   addingButton.insertAdjacentHTML("beforebegin", '<div class = "note" id = "test"> \
-    <button class = "closeBtn" onclick = remDiv()>X</button>\
-    <div class = "headline">Заголовок</div>\
+    <button name = "rem" class = "closeBtn" onclick = remDiv()>X</button>\
+    <div name = "head" class = "head">Заголовок</div>\
     <div class = "time">{Date}</div>\
   </div>'.replace('{Date}', fullDate));
 }
 
-function remDiv(){
-  var test = document.getElementById("test");
-  test.remove()
+function remDiv() {
+  var els = document.getElementsByName("rem");
+  els.forEach(function(item) {
+      item.addEventListener("click", function(){
+          item.parentNode.parentNode.removeChild(item.parentNode);
+      });
+  });
 }
