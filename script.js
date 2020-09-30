@@ -5,7 +5,7 @@ function addDiv(){
     month = '0' + month
   }
   var fullDate = date.getDate() + '.' + month + '.' + date.getFullYear()
-  addingButton.insertAdjacentHTML("beforebegin", '<div onclick = openNote() class = "note" id = "test" oncliclick = openNote()> \
+  addingButton.insertAdjacentHTML("beforebegin", '<div onclick = noteBody() class = "note" id = "test"> \
     <button name = "rem" class = "closeBtn" onclick = remDiv()>X</button>\
     <div name = "head" class = "head">Заголовок</div>\
     <div class = "time">{Date}</div>\
@@ -19,4 +19,10 @@ function remDiv() {
           item.parentNode.parentNode.removeChild(item.parentNode);
       });
   });
+}
+
+function noteBody(){
+  mainBlock.insertAdjacentHTML("afterend", '<textarea class="datearea"></textarea>')
+  mainBlock.insertAdjacentHTML("afterend", '<textarea class="headarea" maxlength = 20></textarea>')
+  mainBlock.insertAdjacentHTML("afterend", '<textarea class="mainarea" ></textarea>')
 }

@@ -1,20 +1,25 @@
 body{
   margin: 0;
+  background-color: #282829
 }
 .main{
-  width: 100%;
-  height: 100%;
   position: absolute;
+  width: 70%;
+  height: 100%;
   display: flex;
+  background-color: #282829
 }
 #left_bar{
   background-color: #1D1C23;
-  width: 40%;
+  left: 0px;
+  top: 0px;
+  width: 30%;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  float:left;
+
   border-right: 1px solid black;
+  position: fixed;
 }
 #left_bar::-webkit-scrollbar {
   width: 2px;
@@ -40,7 +45,7 @@ body{
   padding-left: 5%;
   color: white;
   float:left;
-  transition: 0.1s linear;
+  transition: 0.2s linear;
   position: relative;
 }
 .note:hover{
@@ -73,7 +78,7 @@ body{
   border-top: 0.5px solid #2E2D34;
   border-right: 2px solid #2E2D34;
   border-left: 0.5px solid #2E2D34;
-  transition: 0.1s linear;
+  transition: 0.2s linear;
   color: white
 
 }
@@ -84,8 +89,8 @@ body{
 .closeBtn{
   background-color: #1D1C23;
   position: absolute;
-  width: 5%;
-  height: 20%;
+  width: 25px;
+  height: 25px;
   top: 0%;
   right: -1%;
   border-right: 2px solid #2E2D34;
@@ -94,9 +99,66 @@ body{
   border: 0;
   outline: none;
   color: white;
-  transition: 0.1s linear;
+  transition: 0.2s linear;
 }
 .closeBtn:hover{
   cursor: pointer;
   background-color: #c71400;
+}
+.headarea{
+  background-color: #282829;
+  color: white;
+  position: absolute;
+  right: 17%;
+  top: 5%;
+  width: 50%;
+  height: 30px;
+  border: 0;
+  outline: none;
+  overflow: hidden;
+  resize: none;
+  font-size: 30px;
+}
+.mainarea{
+  background-color: #282829;
+  color: white;
+  position: absolute;
+  right: 5%;
+  top: 12%;
+  width: 60%;
+  height: 80%;
+  border: 0;
+  outline: none;
+  overflow: auto;
+  resize: none;
+  font-size: 20px;
+  line-height: 1.5;
+}
+.mainarea::-webkit-scrollbar {
+  width: 5px;
+  background-color: #282829;
+}
+
+.mainarea::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #606062;
+}
+
+.mainarea::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #282829;
+}
+.datearea{
+  background-color: #282829;
+  color: #565658;
+  position: absolute;
+  left: 55%;
+  right: 40%;
+  top: 5px;
+  width: 20%;
+  height: 20px;
+  border: 0;
+  outline: none;
+  overflow: hidden;
+  resize: none;
 }
