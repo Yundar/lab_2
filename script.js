@@ -1,10 +1,14 @@
 function addDiv(){
   var date = new Date();
   var month = date.getMonth() + 1;
-  if (month <= 9 ){
-    month = '0' + month
+  var day = date.getDate();
+  if (day < 10){
+    day = '0' + day;
   };
-  var fullDate = date.getDate() + '.' + month + '.' + date.getFullYear();
+  if (month <= 9 ){
+    month = '0' + month;
+  };
+  var fullDate = day + '.' + month + '.' + date.getFullYear();
   const id = `f${(+new Date).toString(16)}`;
   const btnid = id + 'btn';
   addingButton.insertAdjacentHTML("beforebegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
@@ -18,9 +22,9 @@ function addDiv(){
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${dId}
    style = "display: none;"></textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 20 id = ${hId}
-   style = "display: none;"></textarea>`);
+   style = "display: none;" onclick = changesInHead(this)></textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${mId}
-   style = "display: none;"></textarea>`);
+   style = "display: none;" onclick = changesInNote(this)></textarea>`);
 };
 
 function noteBody(el){
@@ -50,8 +54,37 @@ function removeNote(el) {
     document.getElementById(mId).remove();
 };
 
-function test(el){
-  const id = el.id;
-  var elid = id.slice(0, 12) + 'mai';
-  document.getElementById(elid).value = document.getElementById(id).value
+function changesInHead(el){
+  var fullDate = dateFull()
+  var id = el.id;
+  id = id.slice(0, 12);
+  var dId = id + 'dat';
+  document.getElementById(dId).value = fullDate
+  // document.getElementById(elid).value = document.getElementById(id).value
+};
+
+function changesInNote(el){
+  var fullDate = dateFull()
+  var id = el.id;
+  id = id.slice(0, 12);
+  var dId = id + 'dat';
+  document.getElementById(dId).value = fullDate
+};
+
+function dateFull(){
+  var date = new Date();
+  var month = date.getMonth() + 1;
+  var hours = date.getHours();
+  var day = date.getDate();
+  if (day < 10){
+    day = '0' + day;
+  };
+  if (hours < 10){
+    hours = '0' + hours;
+  };
+  if (month <= 9 ){
+    month = '0' + month;
+  };
+  var fullDate = day + '.' + month + '.' + date.getFullYear() + ' в ' + hours + ':' + date.getMinutes();
+  return fullDate
 }
