@@ -64,7 +64,6 @@ function changesInHead(el){
   document.getElementById(dId).value = fullDate
   id = id + 'head';
   document.getElementById(id).innerHTML = document.getElementById(elid).value;
-  alert(document.getElementById(elid).value)
 
 };
 
