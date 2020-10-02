@@ -11,20 +11,22 @@ function addDiv(){
   var fullDate = day + '.' + month + '.' + date.getFullYear();
   const id = `f${(+new Date).toString(16)}`;
   const btnid = id + 'btn';
+  const headId = id + 'head';
   addingButton.insertAdjacentHTML("beforebegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
     <button id = ${btnid} class = "closeBtn" onclick = removeNote(this)>X</button>
-    <div name = "head" class = "head">Заголовок</div>
+    <div class = "head" id = ${headId}>Заголовок</div>
     <div class = "time">${fullDate}</div>
     </div>`);
   var dId = id + 'dat';
   var hId = id + 'hea';
   var mId = id + 'mai';
+  fullDate = dateFull();
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${dId}
-   style = "display: none;"></textarea>`);
+   style = "display: none;" readonly = "readonly">${fullDate}</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 20 id = ${hId}
-   style = "display: none;" onclick = changesInHead(this)></textarea>`);
+   style = "display: none;" oninput = changesInHead(this)>Заголовок</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${mId}
-   style = "display: none;" onclick = changesInNote(this)></textarea>`);
+   style = "display: none;" oninput = changesInNote(this)></textarea>`);
 };
 
 function noteBody(el){
@@ -55,16 +57,19 @@ function removeNote(el) {
 };
 
 function changesInHead(el){
-  var fullDate = dateFull()
-  var id = el.id;
-  id = id.slice(0, 12);
+  var fullDate = dateFull();
+  var elid = el.id;
+  id = elid.slice(0, 12);
   var dId = id + 'dat';
   document.getElementById(dId).value = fullDate
-  // document.getElementById(elid).value = document.getElementById(id).value
+  id = id + 'head';
+  document.getElementById(id).innerHTML = document.getElementById(elid).value;
+  alert(document.getElementById(elid).value)
+
 };
 
 function changesInNote(el){
-  var fullDate = dateFull()
+  var fullDate = dateFull();
   var id = el.id;
   id = id.slice(0, 12);
   var dId = id + 'dat';
@@ -86,5 +91,5 @@ function dateFull(){
     month = '0' + month;
   };
   var fullDate = day + '.' + month + '.' + date.getFullYear() + ' в ' + hours + ':' + date.getMinutes();
-  return fullDate
+  return fullDate;
 }
