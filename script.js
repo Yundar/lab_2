@@ -1,21 +1,13 @@
 function addDiv(){
-  var date = new Date();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-  if (day < 10){
-    day = '0' + day;
-  };
-  if (month <= 9 ){
-    month = '0' + month;
-  };
-  var fullDate = day + '.' + month + '.' + date.getFullYear();
+  var fullDate = shortDate()
   const id = `f${(+new Date).toString(16)}`;
   const btnid = id + 'btn';
   const headId = id + 'head';
+  const dateId = id + 'date';
   addingButton.insertAdjacentHTML("beforebegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
     <button id = ${btnid} class = "closeBtn" onclick = removeNote(this)>X</button>
     <div class = "head" id = ${headId}>Заголовок</div>
-    <div class = "time">${fullDate}</div>
+    <div class = "time" id = ${dateId}>${fullDate}</div>
     </div>`);
   var dId = id + 'dat';
   var hId = id + 'hea';
@@ -62,8 +54,11 @@ function changesInHead(el){
   id = elid.slice(0, 12);
   var dId = id + 'dat';
   document.getElementById(dId).value = fullDate
-  id = id + 'head';
-  document.getElementById(id).innerHTML = document.getElementById(elid).value;
+  var headId = id + 'head';
+  document.getElementById(headId).innerHTML = document.getElementById(elid).value;
+  var dateId = id + 'date';
+  fullDate = shortDate();
+  document.getElementById(dateId).innerHTML = fullDate
 
 };
 
@@ -73,22 +68,36 @@ function changesInNote(el){
   id = id.slice(0, 12);
   var dId = id + 'dat';
   document.getElementById(dId).value = fullDate
+  var dateId = id + 'date';
+  fullDate = shortDate();
+  document.getElementById(dateId).innerHTML = fullDate
 };
 
 function dateFull(){
   var date = new Date();
-  var month = date.getMonth() + 1;
+  var month = Number(date.getMonth());
   var hours = date.getHours();
+  var day = date.getDate();
+  if (hours < 10){
+    hours = '0' + hours;
+  };
+  var mon = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', +
+   'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+  month = mon[month];
+  var fullDate = day + ' ' + month + ' ' + date.getFullYear() + ' г. в ' + hours + ':' + date.getMinutes();
+  return fullDate;
+}
+
+function shortDate(){
+  var date = new Date();
+  var month = date.getMonth() + 1;
   var day = date.getDate();
   if (day < 10){
     day = '0' + day;
   };
-  if (hours < 10){
-    hours = '0' + hours;
-  };
   if (month <= 9 ){
     month = '0' + month;
   };
-  var fullDate = day + '.' + month + '.' + date.getFullYear() + ' в ' + hours + ':' + date.getMinutes();
-  return fullDate;
+  date = day + '.' + month + '.' + date.getFullYear();
+  return date;
 }
