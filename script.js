@@ -40,6 +40,14 @@ function addDiv(){
    localStorage.setItem(headId, 'Заголовок');
    localStorage.setItem(dId, fullDate);
    localStorage.setItem(hId, 'Заголовок');
+   var areas = document.getElementsByTagName('textarea');
+   for (let area of areas){
+     area.setAttribute('style', 'display: none;');
+   };
+   var allNotes = document.querySelectorAll('.note');
+   allNotes.forEach(item => {
+     item.removeAttribute("style");
+   });
 };
 
 function noteBody(el){
@@ -54,6 +62,11 @@ function noteBody(el){
   document.getElementById(dId).removeAttribute("style");
   document.getElementById(hId).removeAttribute("style");
   document.getElementById(mId).removeAttribute("style");
+  var allNotes = document.querySelectorAll('.note');
+  allNotes.forEach(item => {
+    item.removeAttribute("style");
+  });
+  document.getElementById(id).setAttribute("style", "background-color: #f08b00");
 };
 
 function removeNote(el) {

@@ -50,7 +50,7 @@ body{
 }
 .note:hover{
   cursor: pointer;
-  background-color: #f08b00
+  background-color: #f08b00;
 }
 .head{
   font-size:170%;
