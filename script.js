@@ -88,11 +88,12 @@ function changesInHead(el){
   var fullDate = dateFull();
   var elid = el.id;
   id = elid.slice(0, 12);
+  var headId = id + 'head';
+  const elidv = document.getElementById(elid).value;
+  changePlace(id, elidv);
   var dId = id + 'dat';
   document.getElementById(dId).value = fullDate;
   localStorage.setItem(dId, fullDate);
-  var headId = id + 'head';
-  const elidv = document.getElementById(elid).value;
   document.getElementById(headId).innerHTML = elidv;
   localStorage.setItem(elid, elidv);
   localStorage.setItem(headId, elidv);
@@ -107,6 +108,9 @@ function changesInNote(el){
   var fullDate = dateFull();
   var elid = el.id;
   var id = elid.slice(0, 12);
+  var hId = id + 'hea';
+  const noteName = document.getElementById(hId).value;
+  changePlace(id, noteName);
   var dId = id + 'dat';
   document.getElementById(dId).value = fullDate;
   localStorage.setItem(dId, fullDate);
@@ -152,4 +156,27 @@ function noteRecovery(item){
    style = "display: none;" oninput = changesInHead(this)>${localStorage.getItem(ids[4])}</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${ids[5]}
    style = "display: none;" oninput = changesInNote(this)>${localStorage.getItem(ids[5])}</textarea>`);
+}
+
+function changePlace(id, noteName){
+  var element = document.getElementById(id);
+  element.remove();
+  const btnid = id + 'btn';
+  const headId = id + 'head';
+  const dateId = id + 'date';
+  left_bar.insertAdjacentHTML("afterbegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
+    <button id = ${btnid} class = "closeBtn" onclick = removeNote(this)>X</button>
+    <div class = "head" id = ${headId}>${noteName}</div>
+    <div class = "time" id = ${dateId} onclick = select()></div>
+    </div>`);
+  let items = JSON.parse(localStorage.getItem('items'));
+  items.forEach((item, index) => {
+    if (id === item){
+      items.splice(index, 1);
+    }
+  });
+  localStorage.setItem('items', JSON.stringify(items));
+  let itemsArray = JSON.parse(localStorage.getItem('items'));
+  itemsArray.push(id);
+  localStorage.setItem('items', JSON.stringify(itemsArray));
 }
