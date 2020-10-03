@@ -196,4 +196,5 @@ function changePlace(id, noteName){
   let itemsArray = JSON.parse(localStorage.getItem('items'));
   itemsArray.push(id);
   localStorage.setItem('items', JSON.stringify(itemsArray));
+  document.getElementById(id).setAttribute("style", "background-color: #f08b00");
 }
