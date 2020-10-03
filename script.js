@@ -28,7 +28,7 @@ function addDiv(){
   fullDate = dateFull();
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${dId}
    style = "display: none;" readonly = "readonly">${fullDate}</textarea>`);
-  mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 20 id = ${hId}
+  mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 25 id = ${hId}
    style = "display: none;" oninput = changesInHead(this)>Заголовок</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${mId}
    style = "display: none;" oninput = changesInNote(this)></textarea>`);
@@ -169,7 +169,7 @@ function noteRecovery(item){
     </div>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${ids[3]}
    style = "display: none;" readonly = "readonly">${localStorage.getItem(ids[3])}</textarea>`);
-  mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 20 id = ${ids[4]}
+  mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 25 id = ${ids[4]}
    style = "display: none;" oninput = changesInHead(this)>${localStorage.getItem(ids[4])}</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${ids[5]}
    style = "display: none;" oninput = changesInNote(this)>${localStorage.getItem(ids[5])}</textarea>`);
