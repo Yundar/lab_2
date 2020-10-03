@@ -9,7 +9,7 @@ body{
   display: flex;
   background-color: #282829
 }
-#left_bar{
+.left_bar{
   background-color: #1D1C23;
   left: 0px;
   top: 0px;
@@ -21,17 +21,17 @@ body{
   border-right: 1px solid black;
   position: fixed;
 }
-#left_bar::-webkit-scrollbar {
+.left_bar::-webkit-scrollbar {
   width: 2px;
   background-color: #282829;
 }
 
-#left_bar::-webkit-scrollbar-thumb {
+.left_bar::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: #606062;
 }
 
-#left_bar::-webkit-scrollbar-track {
+.left_bar::-webkit-scrollbar-track {
   border-radius: 2px;
   background-color: #282829;
 }

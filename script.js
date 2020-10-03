@@ -1,17 +1,30 @@
+let itemsArray = localStorage.getItem('items') ?
+ JSON.parse(localStorage.getItem('items')) : [];
+
+localStorage.setItem('items', JSON.stringify(itemsArray));
+const data = JSON.parse(localStorage.getItem('items'));
+const left_bar = document.querySelector(".left_bar");
+const mainBlock = document.querySelector(".main");
+
+data.forEach(item => {
+  noteRecovery(item);
+});
+
 function addDiv(){
   var fullDate = shortDate()
   const id = `f${(+new Date).toString(16)}`;
   const btnid = id + 'btn';
   const headId = id + 'head';
   const dateId = id + 'date';
-  addingButton.insertAdjacentHTML("beforebegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
+  left_bar.insertAdjacentHTML("afterbegin", `<div onclick = noteBody(this) class = "note" id = ${id}>
     <button id = ${btnid} class = "closeBtn" onclick = removeNote(this)>X</button>
     <div class = "head" id = ${headId}>Заголовок</div>
-    <div class = "time" id = ${dateId}>${fullDate}</div>
+    <div class = "time" id = ${dateId} onclick = select()>${fullDate}</div>
     </div>`);
-  var dId = id + 'dat';
-  var hId = id + 'hea';
-  var mId = id + 'mai';
+  localStorage.setItem(dateId, fullDate);
+  const dId = id + 'dat';
+  const hId = id + 'hea';
+  const mId = id + 'mai';
   fullDate = dateFull();
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${dId}
    style = "display: none;" readonly = "readonly">${fullDate}</textarea>`);
@@ -19,6 +32,14 @@ function addDiv(){
    style = "display: none;" oninput = changesInHead(this)>Заголовок</textarea>`);
   mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${mId}
    style = "display: none;" oninput = changesInNote(this)></textarea>`);
+   let itemsArray = JSON.parse(localStorage.getItem('items'));
+   itemsArray.push(id);
+   localStorage.setItem('items', JSON.stringify(itemsArray));
+   let ids = [btnid, headId, dateId, dId, hId, mId];
+   localStorage.setItem(id, JSON.stringify(ids));
+   localStorage.setItem(headId, 'Заголовок');
+   localStorage.setItem(dId, fullDate);
+   localStorage.setItem(hId, 'Заголовок');
 };
 
 function noteBody(el){
@@ -40,12 +61,27 @@ function removeNote(el) {
     id = id.slice(0,12);
     var element = document.getElementById(id);
     element.remove();
-    var dId = id + 'dat';
-    var hId = id + 'hea';
-    var mId = id + 'mai';
+    const dId = id + 'dat';
+    const hId = id + 'hea';
+    const mId = id + 'mai';
     document.getElementById(dId).remove();
     document.getElementById(hId).remove();
     document.getElementById(mId).remove();
+    let items = JSON.parse(localStorage.getItem('items'));
+    items.forEach((item, index) => {
+      if (id === item){
+        items.splice(index, 1);
+      }
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    const headId = id + 'head';
+    const dateId = id + 'date';
+    localStorage.removeItem(id);
+    localStorage.removeItem(dateId);
+    localStorage.removeItem(headId);
+    localStorage.removeItem(dId);
+    localStorage.removeItem(hId);
+    localStorage.removeItem(mId);
 };
 
 function changesInHead(el){
@@ -53,24 +89,32 @@ function changesInHead(el){
   var elid = el.id;
   id = elid.slice(0, 12);
   var dId = id + 'dat';
-  document.getElementById(dId).value = fullDate
+  document.getElementById(dId).value = fullDate;
+  localStorage.setItem(dId, fullDate);
   var headId = id + 'head';
-  document.getElementById(headId).innerHTML = document.getElementById(elid).value;
+  const elidv = document.getElementById(elid).value;
+  document.getElementById(headId).innerHTML = elidv;
+  localStorage.setItem(elid, elidv);
+  localStorage.setItem(headId, elidv);
   var dateId = id + 'date';
   fullDate = shortDate();
-  document.getElementById(dateId).innerHTML = fullDate
+  document.getElementById(dateId).innerHTML = fullDate;
+  localStorage.setItem(dateId, fullDate);
 
 };
 
 function changesInNote(el){
   var fullDate = dateFull();
-  var id = el.id;
-  id = id.slice(0, 12);
+  var elid = el.id;
+  var id = elid.slice(0, 12);
   var dId = id + 'dat';
-  document.getElementById(dId).value = fullDate
+  document.getElementById(dId).value = fullDate;
+  localStorage.setItem(dId, fullDate);
   var dateId = id + 'date';
   fullDate = shortDate();
-  document.getElementById(dateId).innerHTML = fullDate
+  document.getElementById(dateId).innerHTML = fullDate;
+  localStorage.setItem(dateId, fullDate);
+  localStorage.setItem(elid, document.getElementById(elid).value);
 };
 
 function dateFull(){
@@ -84,20 +128,28 @@ function dateFull(){
   var mon = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', +
    'августа', 'сентября', 'октября', 'ноября', 'декабря'];
   month = mon[month];
-  var fullDate = day + ' ' + month + ' ' + date.getFullYear() + ' г. в ' + hours + ':' + date.getMinutes();
+  var fullDate = day + ' ' + month + ' ' + date.getFullYear() + 'г. в ' + hours + ':' + date.getMinutes();
   return fullDate;
 }
 
 function shortDate(){
   var date = new Date();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-  if (day < 10){
-    day = '0' + day;
-  };
-  if (month <= 9 ){
-    month = '0' + month;
-  };
-  date = day + '.' + month + '.' + date.getFullYear();
-  return date;
+  var formatting = new Intl.DateTimeFormat("ru");
+  return(formatting.format(date));
+}
+
+function noteRecovery(item){
+  const ids = JSON.parse(localStorage.getItem(item));
+  console.log(ids);
+  left_bar.insertAdjacentHTML("afterbegin", `<div onclick = noteBody(this) class = "note" id = ${item}>
+    <button id = ${ids[0]} class = "closeBtn" onclick = removeNote(this)>X</button>
+    <div class = "head" id = ${ids[1]}>${localStorage.getItem(ids[1])}</div>
+    <div class = "time" id = ${ids[2]} onclick = select()>${localStorage.getItem(ids[2])}</div>
+    </div>`);
+  mainBlock.insertAdjacentHTML("afterend", `<textarea class="datearea" id = ${ids[3]}
+   style = "display: none;" readonly = "readonly">${localStorage.getItem(ids[3])}</textarea>`);
+  mainBlock.insertAdjacentHTML("afterend", `<textarea class="headarea" maxlength = 20 id = ${ids[4]}
+   style = "display: none;" oninput = changesInHead(this)>${localStorage.getItem(ids[4])}</textarea>`);
+  mainBlock.insertAdjacentHTML("afterend", `<textarea class="mainarea" placeholder = "Your notes" id = ${ids[5]}
+   style = "display: none;" oninput = changesInNote(this)>${localStorage.getItem(ids[5])}</textarea>`);
 }
