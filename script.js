@@ -142,10 +142,14 @@ function dateFull(){
   if (hours < 10){
     hours = '0' + hours;
   };
+  var minutes = date.getMinutes();
+  if (minutes < 10){
+    minutes = '0' + minutes;
+  };
   var mon = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', +
    'августа', 'сентября', 'октября', 'ноября', 'декабря'];
   month = mon[month];
-  var fullDate = day + ' ' + month + ' ' + date.getFullYear() + 'г. в ' + hours + ':' + date.getMinutes();
+  var fullDate = day + ' ' + month + ' ' + date.getFullYear() + 'г. в ' + hours + ':' + minutes;
   return fullDate;
 }
 
